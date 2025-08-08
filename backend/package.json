@@ -1,0 +1,53 @@
+{
+  "name": "accnext-backend",
+  "version": "1.0.0",
+  "description": "Backend API for AccNext - Financial Tracking System for Solution NextGen",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "migrate": "npx sequelize-cli db:migrate",
+    "migrate:undo": "npx sequelize-cli db:migrate:undo",
+    "seed": "npx sequelize-cli db:seed:all",
+    "seed:undo": "npx sequelize-cli db:seed:undo:all",
+    "seed:categories": "node seed-categories.js",
+    "test": "jest",
+    "db:reset": "npm run migrate:undo && npm run migrate && npm run seed"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mysql",
+    "sequelize",
+    "jwt",
+    "financial-tracking"
+  ],
+  "author": "Solution NextGen",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.11.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.8.1",
+    "express-validator": "^7.0.1",
+    "helmet": "^7.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "moment": "^2.29.4",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.6.0",
+    "node-cron": "^3.0.2",
+    "nodemailer": "^6.10.1",
+    "pdfkit": "^0.13.0",
+    "sequelize": "^6.32.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "jest": "^29.6.2",
+    "nodemon": "^3.0.1",
+    "sequelize-cli": "^6.6.1",
+    "supertest": "^6.3.3"
+  }
+}

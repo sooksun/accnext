@@ -1,0 +1,101 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: accnext_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: accnext_root_password
+      MYSQL_DATABASE: accnext
+      MYSQL_USER: accnext_user
+      MYSQL_PASSWORD: accnext_password
+    volumes:
+      - ./data/db:/var/lib/mysql
+      - ./data/backup:/backup
+    ports:
+      - "3306:3306"
+    networks:
+      - accnext_network
+    command: --default-authentication-plugin=mysql_native_password
+
+  # Backend API
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: accnext_backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: accnext
+      DB_USER: accnext_user
+      DB_PASSWORD: accnext_password
+      JWT_SECRET: your_jwt_secret_here_change_in_production
+      LINE_CHANNEL_ACCESS_TOKEN: ${LINE_CHANNEL_ACCESS_TOKEN}
+      LINE_CHANNEL_SECRET: ${LINE_CHANNEL_SECRET}
+      RD_PREP_API_URL: ${RD_PREP_API_URL}
+      RD_PREP_API_KEY: ${RD_PREP_API_KEY}
+      EMAIL_HOST: ${EMAIL_HOST}
+      EMAIL_PORT: ${EMAIL_PORT}
+      EMAIL_USER: ${EMAIL_USER}
+      EMAIL_PASSWORD: ${EMAIL_PASSWORD}
+      EMAIL_FROM: ${EMAIL_FROM}
+      NOTIFICATION_EMAIL: ${NOTIFICATION_EMAIL}
+    volumes:
+      - ./data/uploads:/app/uploads
+      - ./data/backup:/app/backups
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mysql
+    networks:
+      - accnext_network
+
+  # Frontend Next.js
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: accnext_frontend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: http://backend:5000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - accnext_network
+
+  # Nginx Reverse Proxy (Optional)
+  nginx:
+    image: nginx:alpine
+    container_name: accnext_nginx
+    restart: unless-stopped
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - accnext_network
+
+networks:
+  accnext_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
+  uploads_data:
+    driver: local
+  backup_data:
+    driver: local 

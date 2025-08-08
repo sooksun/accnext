@@ -1,0 +1,27 @@
+# Cursor IDE Rules for AccNext Project
+
+## SQL Keywords Highlighting
+SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, TABLE, DATABASE, INDEX, FROM, WHERE, JOIN, INNER, LEFT, RIGHT, OUTER, ON, GROUP, ORDER, BY, HAVING, LIMIT, OFFSET, AS, DISTINCT, COUNT, SUM, AVG, MAX, MIN, NULL, NOT, AND, OR, LIKE, IN, BETWEEN, EXISTS, UNION, CASE, WHEN, THEN, ELSE, END
+
+## JavaScript/TypeScript Keywords Highlighting
+const, let, var, function, async, await, Promise, import, export, default, class, interface, type, enum, namespace, module, extends, implements, public, private, protected, static, readonly, abstract, super, this, new, typeof, instanceof, void, undefined, null, true, false, if, else, switch, case, default, for, while, do, break, continue, return, try, catch, finally, throw, with
+
+## Thai Language Support
+- Use UTF-8 encoding for all files
+- Support Thai language in comments and strings
+- Follow Thai naming conventions for user-facing elements
+
+## Code Style Guidelines
+- Use TypeScript for all new files
+- Follow ESLint and Prettier configurations
+- Use camelCase for variables and functions
+- Use PascalCase for components and classes
+- Use kebab-case for file names
+- Add JSDoc comments for functions and classes
+- Use meaningful variable names in English for code, Thai for user interface
+
+## Database Naming Conventions
+- Use snake_case for table and column names
+- Prefix tables with appropriate namespace
+- Use singular nouns for table names
+- Add created_at and updated_at timestamps to all tables
