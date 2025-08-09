@@ -9,7 +9,7 @@ const {
   restoreCategory,
   getCategoryStats
 } = require('../controllers/category.controller');
-const { adminOrAccountant, adminOnly } = require('../middleware/auth');
+const { authenticateToken, adminOrAccountant, adminOnly } = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -109,15 +109,15 @@ router.get('/stats', categoryStatsValidation, getCategoryStats);
 router.get('/:id', categoryIdValidation, getCategoryById);
 
 // POST /api/categories - สร้างหมวดหมู่ใหม่ (แอดมิน/นักบัญชี)
-router.post('/', adminOrAccountant, createCategoryValidation, createCategory);
+router.post('/', authenticateToken, adminOrAccountant, createCategoryValidation, createCategory);
 
 // PUT /api/categories/:id - แก้ไขหมวดหมู่ (แอดมิน/นักบัญชี)
-router.put('/:id', adminOrAccountant, updateCategoryValidation, updateCategory);
+router.put('/:id', authenticateToken, adminOrAccountant, updateCategoryValidation, updateCategory);
 
 // DELETE /api/categories/:id - ลบหมวดหมู่ (แอดมิน/นักบัญชี)
-router.delete('/:id', adminOrAccountant, categoryIdValidation, deleteCategory);
+router.delete('/:id', authenticateToken, adminOrAccountant, categoryIdValidation, deleteCategory);
 
 // PUT /api/categories/:id/restore - กู้คืนหมวดหมู่ (แอดมิน)
-router.put('/:id/restore', adminOnly, categoryIdValidation, restoreCategory);
+router.put('/:id/restore', authenticateToken, adminOnly, categoryIdValidation, restoreCategory);
 
 module.exports = router;
