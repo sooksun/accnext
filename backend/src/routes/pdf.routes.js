@@ -4,9 +4,10 @@ const {
   generateIncomeReceipt,
   generateExpenseReceipt,
   generateMonthlyReportPDF,
-  generateYearlyReportPDF
+  generateYearlyReportPDF,
+  generateInvoicePDF
 } = require('../controllers/pdf.controller');
-const { authenticateToken, requireRole } = require('../middleware/auth');
+const { authenticateToken, authorizeRoles } = require('../middleware/auth');
 
 // Generate income receipt PDF
 router.get('/income/:id/receipt', authenticateToken, generateIncomeReceipt);
@@ -19,5 +20,8 @@ router.get('/report/monthly', authenticateToken, generateMonthlyReportPDF);
 
 // Generate yearly report PDF
 router.get('/report/yearly', authenticateToken, generateYearlyReportPDF);
+
+// Generate invoice PDF
+router.get('/invoice/:id', authenticateToken, generateInvoicePDF);
 
 module.exports = router; 

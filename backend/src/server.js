@@ -19,6 +19,7 @@ const backupRoutes = require('./routes/backup.routes');
 const notificationRoutes = require('./routes/notification.routes');
 const lineRoutes = require('./routes/line.routes');
 const rdPrepRoutes = require('./routes/rdprep.routes');
+const invoiceRoutes = require('./routes/invoice.routes');
 
 // Import middleware
 const { errorHandler } = require('./middleware/errorHandler');
@@ -96,6 +97,7 @@ app.use('/api/backup', authenticateToken, backupRoutes);
 app.use('/api/notifications', authenticateToken, notificationRoutes);
 app.use('/api/line', lineRoutes); // LINE webhook ไม่ต้อง authenticate
 app.use('/api/rdprep', authenticateToken, rdPrepRoutes);
+app.use('/api/invoices', authenticateToken, invoiceRoutes);
 
 // Welcome endpoint
 app.get('/', (req, res) => {
@@ -126,7 +128,10 @@ app.use('*', (req, res) => {
       'GET /api/backup',
       'GET /api/notifications',
       'POST /api/line/webhook',
-      'POST /api/rdprep/submit'
+      'POST /api/rdprep/submit',
+      'GET /api/invoices',
+      'POST /api/invoices',
+      'GET /api/invoices/:id/pdf'
     ]
   });
 });

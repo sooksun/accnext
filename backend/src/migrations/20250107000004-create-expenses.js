@@ -100,6 +100,12 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
+    // ลบ foreign key constraint ก่อน
+    try {
+      await queryInterface.removeConstraint('wht_cert_issued', 'wht_cert_issued_ibfk_1');
+    } catch (error) {
+      // ถ้า constraint ไม่มีอยู่แล้ว ให้ข้ามไป
+    }
     await queryInterface.dropTable('expenses');
   }
 };

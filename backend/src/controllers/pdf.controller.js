@@ -1,5 +1,5 @@
 const PDFGenerator = require('../utils/pdfGenerator');
-const { Income, Expense, Category, User } = require('../models');
+const { Income, Expense, Category, User, Invoice, InvoiceItem } = require('../models');
 
 const pdfGenerator = new PDFGenerator();
 
@@ -294,9 +294,52 @@ const generateYearlyReportPDF = async (req, res) => {
   }
 };
 
+// Generate invoice PDF
+const generateInvoicePDF = async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    const invoice = await Invoice.findByPk(id, {
+      include: [
+        {
+          model: User,
+          as: 'issuer',
+          attributes: ['id', 'username', 'email']
+        },
+        {
+          model: InvoiceItem,
+          as: 'items',
+          order: [['item_no', 'ASC']]
+        }
+      ]
+    });
+    
+    if (!invoice) {
+      return res.status(404).json({ success: false, message: 'ไม่พบใบกำกับภาษีที่ระบุ' });
+    }
+    
+    // Check if user can access this invoice
+    if (req.user.role !== 'admin' && invoice.issued_by !== req.user.id) {
+      return res.status(403).json({ success: false, message: 'ไม่มีสิทธิ์เข้าถึงใบกำกับภาษีนี้' });
+    }
+    
+    const result = await pdfGenerator.generateInvoice(invoice);
+    
+    // Send PDF file directly
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `inline; filename="${result.fileName}"`);
+    res.sendFile(result.filePath);
+    
+  } catch (error) {
+    console.error('Error generating invoice PDF:', error);
+    res.status(500).json({ success: false, message: 'เกิดข้อผิดพลาดในการสร้างใบกำกับภาษี PDF' });
+  }
+};
+
 module.exports = {
   generateIncomeReceipt,
   generateExpenseReceipt,
   generateMonthlyReportPDF,
-  generateYearlyReportPDF
+  generateYearlyReportPDF,
+  generateInvoicePDF
 }; 

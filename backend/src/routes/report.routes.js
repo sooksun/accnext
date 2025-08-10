@@ -6,7 +6,7 @@ const {
   getCustomRangeReport,
   getDashboardSummary
 } = require('../controllers/report.controller');
-const { authenticateToken, requireRole } = require('../middleware/auth');
+const { authenticateToken, authorizeRoles } = require('../middleware/auth');
 
 // Get dashboard summary
 router.get('/dashboard', authenticateToken, getDashboardSummary);

@@ -79,6 +79,102 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
+    // ลบ foreign key constraint ทั้งหมดก่อน
+    try {
+      await queryInterface.removeConstraint('expenses', 'expenses_ibfk_2');
+    } catch (error) {
+      // ถ้า constraint ไม่มีอยู่แล้ว ให้ข้ามไป
+    }
+    try {
+      await queryInterface.removeConstraint('expenses', 'expenses_ibfk_4');
+    } catch (error) {
+      // ถ้า constraint ไม่มีอยู่แล้ว ให้ข้ามไป
+    }
+    try {
+      await queryInterface.removeConstraint('expenses', 'expenses_ibfk_6');
+    } catch (error) {
+      // ถ้า constraint ไม่มีอยู่แล้ว ให้ข้ามไป
+    }
+    try {
+      await queryInterface.removeConstraint('expenses', 'expenses_ibfk_8');
+    } catch (error) {
+      // ถ้า constraint ไม่มีอยู่แล้ว ให้ข้ามไป
+    }
+    try {
+      await queryInterface.removeConstraint('expenses', 'expenses_ibfk_10');
+    } catch (error) {
+      // ถ้า constraint ไม่มีอยู่แล้ว ให้ข้ามไป
+    }
+    try {
+      await queryInterface.removeConstraint('expenses', 'expenses_ibfk_12');
+    } catch (error) {
+      // ถ้า constraint ไม่มีอยู่แล้ว ให้ข้ามไป
+    }
+    try {
+      await queryInterface.removeConstraint('expenses', 'expenses_ibfk_14');
+    } catch (error) {
+      // ถ้า constraint ไม่มีอยู่แล้ว ให้ข้ามไป
+    }
+    try {
+      await queryInterface.removeConstraint('expenses', 'expenses_ibfk_16');
+    } catch (error) {
+      // ถ้า constraint ไม่มีอยู่แล้ว ให้ข้ามไป
+    }
+    try {
+      await queryInterface.removeConstraint('expenses', 'expenses_ibfk_18');
+    } catch (error) {
+      // ถ้า constraint ไม่มีอยู่แล้ว ให้ข้ามไป
+    }
+    
+    // ลบ foreign key constraint ของ categories table
+    try {
+      await queryInterface.removeConstraint('categories', 'categories_ibfk_1');
+    } catch (error) {
+      // ถ้า constraint ไม่มีอยู่แล้ว ให้ข้ามไป
+    }
+    
+    // ลบ foreign key constraint ของ categories table ด้วยชื่อที่ถูกต้อง
+    try {
+      await queryInterface.removeConstraint('categories', 'categories_created_by_users_fk');
+    } catch (error) {
+      // ถ้า constraint ไม่มีอยู่แล้ว ให้ข้ามไป
+    }
+    
+    // ลบ foreign key constraint ของ categories table ด้วยชื่อที่ถูกต้อง
+    try {
+      await queryInterface.removeConstraint('categories', 'categories_created_by_fkey');
+    } catch (error) {
+      // ถ้า constraint ไม่มีอยู่แล้ว ให้ข้ามไป
+    }
+    
+    // ลบ foreign key constraint ของ categories table ด้วยชื่อที่ถูกต้อง
+    try {
+      await queryInterface.removeConstraint('categories', 'categories_created_by_fkey');
+    } catch (error) {
+      // ถ้า constraint ไม่มีอยู่แล้ว ให้ข้ามไป
+    }
+    
+    // ลบ foreign key constraint ของ categories table ด้วยชื่อที่ถูกต้อง
+    try {
+      await queryInterface.removeConstraint('categories', 'categories_created_by_fkey');
+    } catch (error) {
+      // ถ้า constraint ไม่มีอยู่แล้ว ให้ข้ามไป
+    }
+    
+    // ลบ foreign key constraint ของ categories table ด้วยชื่อที่ถูกต้อง
+    try {
+      await queryInterface.removeConstraint('categories', 'categories_created_by_fkey');
+    } catch (error) {
+      // ถ้า constraint ไม่มีอยู่แล้ว ให้ข้ามไป
+    }
+    
+    // ลบ foreign key constraint ของ categories table ด้วยชื่อที่ถูกต้อง
+    try {
+      await queryInterface.removeConstraint('categories', 'categories_created_by_fkey');
+    } catch (error) {
+      // ถ้า constraint ไม่มีอยู่แล้ว ให้ข้ามไป
+    }
+    
     await queryInterface.dropTable('categories');
   }
 };

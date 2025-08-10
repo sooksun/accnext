@@ -1,0 +1,96 @@
+'use strict';
+
+module.exports = {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.bulkInsert('invoices', [
+      {
+        doc_no: 'INV-001',
+        doc_type: 'invoice',
+        doc_date: '2025-01-07',
+        due_date: '2025-02-07',
+        customer_id: 1,
+        customer_name: 'บริษัท เอ จำกัด',
+        customer_tax_id: '0123456789012',
+        customer_address: '123 ถนนสุขุมวิท แขวงคลองเตย เขตคลองเตย กรุงเทพฯ 10110',
+        customer_phone: '02-123-4567',
+        subtotal: 10000.00,
+        vat_rate: 7.00,
+        vat_amount: 700.00,
+        wht_rate: 0.00,
+        wht_amount: 0.00,
+        grand_total: 10700.00,
+        paid_amount: 10700.00,
+        status: 'paid',
+        payment_status: 'paid',
+        payment_method: 'โอนเงิน',
+        payment_date: '2025-01-10',
+        note: 'ใบกำกับภาษีสำหรับบริการที่ 1',
+        terms_conditions: 'ชำระเงินภายใน 30 วัน',
+        issued_by: 1,
+        issued_at: '2025-01-07 09:00:00',
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        doc_no: 'INV-002',
+        doc_type: 'invoice',
+        doc_date: '2025-01-08',
+        due_date: '2025-02-08',
+        customer_id: 2,
+        customer_name: 'บริษัท บี จำกัด',
+        customer_tax_id: '0987654321098',
+        customer_address: '456 ถนนรัชดาภิเษก แขวงดินแดง เขตดินแดง กรุงเทพฯ 10400',
+        customer_phone: '02-234-5678',
+        subtotal: 15000.00,
+        vat_rate: 7.00,
+        vat_amount: 1050.00,
+        wht_rate: 0.00,
+        wht_amount: 0.00,
+        grand_total: 16050.00,
+        paid_amount: 0.00,
+        status: 'issued',
+        payment_status: 'unpaid',
+        payment_method: null,
+        payment_date: null,
+        note: 'ใบกำกับภาษีสำหรับบริการที่ 2',
+        terms_conditions: 'ชำระเงินภายใน 15 วัน',
+        issued_by: 1,
+        issued_at: '2025-01-08 10:00:00',
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        doc_no: 'INV-003',
+        doc_type: 'invoice',
+        doc_date: '2025-01-05',
+        due_date: '2025-02-05',
+        customer_id: 3,
+        customer_name: 'บริษัท ซี จำกัด',
+        customer_tax_id: '0555666777888',
+        customer_address: '789 ถนนพระราม 9 แขวงห้วยขวาง เขตห้วยขวาง กรุงเทพฯ 10310',
+        customer_phone: '02-345-6789',
+        subtotal: 8000.00,
+        vat_rate: 7.00,
+        vat_amount: 560.00,
+        wht_rate: 0.00,
+        wht_amount: 0.00,
+        grand_total: 8560.00,
+        paid_amount: 0.00,
+        status: 'draft',
+        payment_status: 'unpaid',
+        payment_method: null,
+        payment_date: null,
+        note: 'ใบกำกับภาษีสำหรับบริการที่ 3',
+        terms_conditions: 'ชำระเงินภายใน 45 วัน',
+        issued_by: null,
+        issued_at: null,
+        created_at: new Date(),
+        updated_at: new Date()
+      }
+    ], {});
+  },
+
+  async down(queryInterface, Sequelize) {
+    await queryInterface.bulkDelete('invoices', null, {});
+  }
+}; 
