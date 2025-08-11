@@ -209,18 +209,18 @@ class PDFGenerator {
             // Add company text (center-right side)
             doc.fontSize(24)
                .font(baseFont)
-               .text('Solution NextGen', 100, currentY + 10, { align: 'center', width: 350 });
+               .text('Solution NextGen', 110, currentY + 10, { align: 'center', width: 350 });
             
             doc.fontSize(18)
                .font(baseFont)
-               .text('ใบกำกับภาษี / ใบเสร็จรับเงิน', 100, currentY + 40, { align: 'center', width: 350 });
+               .text('ใบกำกับภาษี / ใบเสร็จรับเงิน', 110, currentY + 40, { align: 'center', width: 350 });
             
             doc.fontSize(14)
                .font(baseFont)
-               .text('TAX INVOICE / RECEIPT', 100, currentY + 65, { align: 'center', width: 350 });
+               .text('TAX INVOICE / RECEIPT', 110, currentY + 65, { align: 'center', width: 350 });
                
             // Move to next position after logo
-            doc.y = currentY + 100;
+            doc.y = currentY + 80;
             
           } else {
             console.log('⚠️ Logo not found, using text-only header');
